@@ -1,6 +1,14 @@
 <div class="col-md-12">
   <div class="group">
 
+    <span class="pull-right">
+      <% if current_user && current_user.is_member_of?(@movie) %>
+        <label class="label label-success"> Favorite </label>
+      <% else %>
+        <lable class="label label-warning"> Not Your Favorite </label>
+      <% end %>
+    </span>
+
     <%= link_to("Comment", new_movie_post_path(@movie), class: "btn btn-default pull-right")%>
 
     <% if current_user && current_user == @movie.user %>
