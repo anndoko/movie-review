@@ -1,0 +1,27 @@
+<div class="col-md-12">
+  <h2 class="text-center">My Favorites</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <td> # </td>
+        <td> Title </td>
+        <td> Description </td>
+        <td> Count </td>
+        <td> Last Update </td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr>
+          <td> # </td>
+          <td><%= link_to(movie.title, movie_path(movie)) %></td>
+          <td><%= movie.description %></td>
+          <td><%= movie.posts.count %></td>
+          <td><%= movie.updated_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
