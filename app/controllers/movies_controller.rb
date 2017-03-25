@@ -43,6 +43,34 @@ before_action :find_movie_and_check_permission, only: [:edit, :update, :destroy]
     redirect_to movies_path
   end
 
+  def join
+    @movie = Movie.find(params[:id])
+
+    if !current_user.is_member_of?(@movie)
+      current_user.join!(@movie)
+      flash[:notice] = "You have added the movie to your favorites."
+    else
+      flash[:warning] = "That movie is already in your favorites."
+    end
+
+    redirect_to movie_path(@movie)
+  end
+
+  def quit
+    @movie = Movie.find(params[:id])
+
+    if current_user.is_member_of?(@movie)
+      current_user.quit!(@movie)
+      flash[:alert] = "You have removed the movie from your favorites."
+    else
+      flash[:warning] = "That movie is not in your favorites."
+    end
+
+    redirect_to movie_path(@movie)
+  end
+
+
+
   private
 
   def find_movie_and_check_permission
