@@ -1,0 +1,12 @@
+  <tr>
+    <td> # </td>
+    <td><%= link_to(movie.title, movie_path(movie)) %></td>
+    <td><%= render_movie_description(movie) %></td>
+    <td><%= movie.user.email %></td>
+    <td>
+      <% if current_user && current_user == movie.user %>
+      <%= link_to("Edit", edit_movie_path(movie), class: "btn btn-sm btn-default") %>
+      <%= link_to("Delete", movie_path(movie), class: "btn btn-sm btn-default", method: :delete, data: { confirm: "Are you sure to delete this movie?"}) %>
+      <% end %>
+    </td>
+  </tr>
