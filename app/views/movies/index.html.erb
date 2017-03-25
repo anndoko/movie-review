@@ -1,0 +1,28 @@
+<div class="col-md-12">
+  <div class="movie">
+    <%= link_to("New group", new_movie_path, class: "btn btn-primary pull-right") %>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td> # </td>
+        <td> Title </td>
+        <td> Description </td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr>
+          <td> # </td>
+          <td><%= link_to(movie.title, movie_path(movie)) %></td>
+          <td><%= movie.description %></td>
+          <td>
+            <%= link_to("Edit", edit_movie_path(movie), class: "btn btn-sm btn-default") %>
+            <%= link_to("Delete", movie_path(movie), class: "btn btn-sm btn-default", method: :delete, data: { confirm: "Are you sure to delete this movie?"}) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
