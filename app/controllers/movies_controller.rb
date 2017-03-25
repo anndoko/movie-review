@@ -28,6 +28,13 @@ class MoviesController < ApplicationController
     redirect_to movies_path, notice: "You have edited the movie successfully."
   end
 
+  def destroy
+    @movie = Movie.find(params[:id])
+    @movie.destroy
+    flash[:alert] = "Movie deleted. You cannot undo the change."
+    redirect_to movies_path
+  end
+
   private
 
   def movie_params
