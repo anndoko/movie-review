@@ -8,7 +8,7 @@ before_action :find_movie_and_check_permission, only: [:edit, :update, :destroy]
 
   def show
     @movie = Movie.find(params[:id])
-    @posts = @movie.posts
+    @posts = @movie.posts.order("created_at DESC")
   end
 
   def edit
