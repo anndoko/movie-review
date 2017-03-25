@@ -1,0 +1,17 @@
+<div class="col-md-4 col-md-offset-4">
+  <h2>Edit Existing Movie</h2>
+
+  <hr>
+  <%= form_for @movie do |f| %>
+
+  Movie Title
+  <%= f.text_field :title %>
+  <br>
+  Description
+  <br>
+  <%= f.text_area :description %>
+  <br>
+
+  <%= f.submit "Submit", :disable_with => 'Submiting...' %>
+  <% end %>
+</div>
