@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
 before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy]
+before_action :find_movie_and_check_permission, only: [:edit, :update, :destroy]
 
   def index
     @movies = Movie.all
@@ -10,11 +11,6 @@ before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destr
   end
 
   def edit
-    @movie = Movie.find(params[:id])
-
-    if current_user != @movie.user
-      redirect_to root_path, alert: "You have no permission."
-    end
   end
 
   def new
@@ -33,12 +29,6 @@ before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destr
   end
 
   def update
-    @movie = Movie.find(params[:id])
-
-    if current_user != @movie.user
-      redirect_to root_path, alert: "You have no permission."
-    end
-
     if @movie.update(movie_params)
       redirect_to movies_path, notice: "You have edited the movie successfully."
     else
@@ -47,18 +37,20 @@ before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destr
   end
 
   def destroy
-    @movie = Movie.find(params[:id])
-
-    if current_user != @movie.user
-      redirect_to root_path, alert: "You have no permission."
-    end
-
     @movie.destroy
     flash[:alert] = "Movie deleted. You cannot undo the change."
     redirect_to movies_path
   end
 
   private
+
+  def find_movie_and_check_permission
+    @movie = Movie.find(params[:id])
+
+    if current_user != @movie.user
+      redirect_to root_path, alert: "You have no permission."
+    end
+  end
 
   def movie_params
     params.require(:movie).permit(:title, :description)
